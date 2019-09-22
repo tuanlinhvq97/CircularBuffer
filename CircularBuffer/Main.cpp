@@ -2,7 +2,7 @@
 #include <thread>
 #include <Windows.h>
 
-CircularBuffer<int> cBuf = CircularBuffer<int>(32);
+CircularBuffer<int> cBuf(64);
 template<typename T> void Push(CircularBuffer<T>* buf);
 template<typename T> void Pop(CircularBuffer<T>* buf);
 
@@ -29,7 +29,7 @@ void Push(CircularBuffer<T>* buf)
 		T data = rand() % 100;
 
 		buf->Push(data);
-		cout << "PUSH\t" << count++ << ":\t\t" << data << endl;
+		cout << "PUSH\t" << count++ << ":\t\t" << data /*<< "\t\t\t\t" << buf->IsFull()*/ << endl;
 	}
 }
 
@@ -43,6 +43,6 @@ void Pop(CircularBuffer<T>* buf)
 		Sleep(1000 + rand() % 1001);
 
 		T data = buf->Pop();
-		cout << ">>POP\t" << count++ << ": \t\t\t\t" << data << endl;
+		cout << ">>POP\t" << count++ << ": \t\t\t\t" << data /*<< "\t\t" << buf->IsFull()*/ << endl;
 	}
 }
